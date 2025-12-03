@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        window.onload = function() {
+            var msg = new SpeechSynthesisUtterance();
+            msg.text = "Prediction result: {{ prediction_text }}";
+            msg.lang = 'en-US';
+            window.speechSynthesis.speak(msg);
+        }
+    </script>
+</head>
+<body>
+    <div class="container result-container {% if 'Fraud' in prediction_text %}fraud{% else %}safe{% endif %}">
+        <h2>Prediction Result</h2>
+        <p class="prediction-text">{{ prediction_text }}</p>
+        <p class="probability">Probability: {{ '%.4f' % probability }}</p>
+        <a href="/" class="btn-back">Predict Another</a>
+    </div>
+</body>
+</html>
